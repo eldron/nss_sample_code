@@ -1,0 +1,17 @@
+NSS_INCLUDE_PATH=/home/work/Documents/dist/public/nss
+NSPR_INCLUDE_PATH=/home/work/Documents/dist/Debug/include/nspr
+NSPR_LIBRARY_PATH=/home/work/Documents/dist/Debug/lib
+FREEBL_LIBRARY_PATH=/home/work/Documents/nss/lib/freebl
+
+LINK_FLAGS=-lfreebl3 -lnssckbi -lplc4 -lsqlite3 -lfreeblpriv3 -lnssdbm3 -lplds4 -lssl3 -lnspr4 -lnsssysinit -lsmime3 -lnss3 -lnssutil3 -lsoftokn3
+
+
+all:client server
+	echo 'built client and server'
+
+client:client.c sslsample.c
+	gcc client.c sslsample.c -I$(NSS_INCLUDE_PATH) -I$(NSPR_INCLUDE_PATH) -I$(FREEBL_LIBRARY_PATH) -L$(NSPR_LIBRARY_PATH) $(LINK_FLAGS) -o client
+
+server:server.c sslsample.c
+	gcc server.c sslsample.c -I$(NSS_INCLUDE_PATH) -I$(NSPR_INCLUDE_PATH) -I$(FREEBL_LIBRARY_PATH) -L$(NSPR_LIBRARY_PATH) $(LINK_FLAGS) -o server
+
